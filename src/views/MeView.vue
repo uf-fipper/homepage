@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import '../assets/styles.css';
 import '../assets/root.css';
-import { onMounted, ref, type Ref } from 'vue';
+import { onMounted, ref, type AnchorHTMLAttributes, type Ref } from 'vue';
+import ProjectItem, { type ProjectItemProps } from '@/components/ProjectItem.vue';
+import SvgComponent from '@/components/SvgComponent.vue';
 
 console.log(
   '%cCopyright © 2024 zyyo.net',
@@ -19,27 +21,48 @@ document.addEventListener('contextmenu', function (event) {
 
 var showLoading = ref(true);
 
-var buttons = document.querySelectorAll('.projectItem');
-buttons.forEach(function (button) {
-  button.addEventListener('mousedown', (event) => {
-    button.classList.add('pressed');
-  });
-  button.addEventListener('mouseup', (event) => {
-    button.classList.remove('pressed');
-  });
-  button.addEventListener('mouseleave', (event) => {
-    button.classList.remove('pressed');
-  });
-  button.addEventListener('touchstart', (event) => {
-    button.classList.add('pressed');
-  });
-  button.addEventListener('touchend', (event) => {
-    button.classList.remove('pressed');
-  });
-  button.addEventListener('touchcancel', (event) => {
-    button.classList.remove('pressed');
-  });
-});
+// site 列表
+let siteProjectItems: ProjectItemProps[] = [
+  {
+    title: '博客',
+    value: '记录摆烂日常',
+    href: 'https://blog.zyyo.net',
+    image: 'src/assets/img/i1.png',
+    extClass: 'a',
+  },
+  {
+    title: '云盘',
+    value: '存储收集文件',
+    href: 'https://i.zyyo.cc',
+    image: 'src/assets/img/i2.png',
+    extClass: 'a',
+  },
+  {
+    title: '实验室',
+    value: '收集有趣html作品',
+    href: 'https://zyyo.cc',
+    image: 'src/assets/img/i3.png',
+    extClass: 'a',
+  },
+];
+
+// project 列表
+let projectProjectItems: ProjectItemProps[] = [
+  {
+    title: 'ZYYO主页',
+    value: '本站同款',
+    href: 'https://github.com/ZYYO666/homepage',
+    image: 'src/assets/img/i5.png',
+    extClass: 'b',
+  },
+  {
+    title: 'ZYYO主题',
+    value: '一款ty主题',
+    href: 'https://github.com/ZYYO666/ZYYO',
+    image: 'src/assets/img/i6.png',
+    extClass: 'b',
+  },
+];
 
 function toggleClass(selector: string, className: string) {
   var elements = document.querySelectorAll(selector);
@@ -330,31 +353,8 @@ setTimeout(() => {
           >site
         </div>
         <div class="projectList">
-          <a class="projectItem a" target="_blank" href="https://blog.zyyo.net">
-            <div class="projectItemLeft">
-              <h1>博客</h1>
-              <p>记录摆烂日常</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../assets/img/i1.png" alt="" />
-            </div> </a
-          ><a class="projectItem a" target="_blank" href="https://i.zyyo.cc">
-            <div class="projectItemLeft">
-              <h1>云盘</h1>
-              <p>存储收集文件</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../assets/img/i2.png" alt="" />
-            </div> </a
-          ><a class="projectItem a" target="_blank" href="https://zyyo.cc">
-            <div class="projectItemLeft">
-              <h1>实验室</h1>
-              <p>收集有趣html作品</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../assets/img/i3.png" alt="" />
-            </div>
-          </a>
+          <ProjectItem v-for="(item, i) in siteProjectItems" :key="item.title + i" :item="item">
+          </ProjectItem>
         </div>
         <div class="title">
           <svg
@@ -372,23 +372,8 @@ setTimeout(() => {
           >project
         </div>
         <div class="projectList">
-          <a class="projectItem b" target="_blank" href="https://github.com/ZYYO666/homepage">
-            <div class="projectItemLeft">
-              <h1>ZYYO主页</h1>
-              <p>本站同款</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../assets/img/i5.png" alt="" />
-            </div> </a
-          ><a class="projectItem b" target="_blank" href="https://github.com/ZYYO666/ZYYO">
-            <div class="projectItemLeft">
-              <h1>ZYYO主题</h1>
-              <p>一款ty主题</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../assets/img/i6.png" alt="" />
-            </div>
-          </a>
+          <ProjectItem v-for="(item, i) in projectProjectItems" :key="item.title + i" :item="item">
+          </ProjectItem>
         </div>
         <div class="title">
           <svg

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainView from './views/MainView.vue';
+import MeView from './views/MeView.vue';
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import MainView from './views/MainView.vue';
     </div>
   </header> -->
 
-  <MainView />
+  <RouterView />
 </template>
 
 <style scoped>
