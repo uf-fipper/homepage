@@ -24,8 +24,6 @@ interface IconItem {
   name: string;
 }
 
-var showLoading = ref(true);
-
 // 时间线
 let lineItems: LineItem[] = [
   { text: '敬请期待', time: '2024.1' },
@@ -107,26 +105,22 @@ let projectProjectItems: ProjectItemProps[] = [
   },
 ];
 
-function toggleClass(selector: string, className: string) {
-  var elements = document.querySelectorAll(selector);
-  elements.forEach(function (element) {
-    element.classList.toggle(className);
-  });
-}
+let tcMainElementSrc = ref('');
+let tcMainActive = ref(false);
+let tcActive = ref(false);
 
 function pop(imageURL?: string) {
-  var tcMainElement = document.querySelector('.tc-img') as HTMLImageElement;
   if (imageURL) {
-    tcMainElement.src = imageURL;
+    tcMainElementSrc.value = imageURL;
   }
-  toggleClass('.tc-main', 'active');
-  toggleClass('.tc', 'active');
+  tcMainActive.value = !tcMainActive.value;
+  tcActive.value = !tcActive.value;
 }
 
 function setCookie(name: string, value: string, days: number) {
-  var expires = '';
+  let expires = '';
   if (days) {
-    var date = new Date();
+    let date = new Date();
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = '; expires=' + date.toUTCString();
   }
@@ -134,10 +128,10 @@ function setCookie(name: string, value: string, days: number) {
 }
 
 function getCookie(name: string) {
-  var nameEQ = name + '=';
-  var cookies = document.cookie.split(';');
-  for (var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
+  let nameEQ = name + '=';
+  let cookies = document.cookie.split(';');
+  for (let i = 0; i < cookies.length; i++) {
+    let cookie = cookies[i];
     while (cookie.charAt(0) == ' ') {
       cookie = cookie.substring(1, cookie.length);
     }
@@ -148,27 +142,26 @@ function getCookie(name: string) {
   return null;
 }
 
-var html = document.querySelector('html') as unknown as HTMLDivElement;
-var themeState: Ref<'Light' | 'Dark'> = ref(getCookie('themeState') == 'Dark' ? 'Dark' : 'Light');
-var tanChiSheSrc = ref('');
+let html = document.querySelector('html') as unknown as HTMLDivElement;
+let themeState: Ref<'Light' | 'Dark'> = ref(getCookie('themeState') == 'Dark' ? 'Dark' : 'Light');
+let tanChiSheSrc = ref('');
 
 function changeTheme(theme: 'Light' | 'Dark') {
-  console.log('asdfqwer' + theme);
   tanChiSheSrc.value = 'src/assets/svg/snake-' + theme + '.svg';
-  console.log('value', tanChiSheSrc.value);
   html.dataset.theme = theme;
   setCookie('themeState', theme, 365);
   themeState.value = theme;
 }
 changeTheme(themeState.value);
 
+let showLoadingOpacity = ref(100);
 setTimeout(() => {
-  showLoading.value = false;
+  showLoadingOpacity.value = 0;
 }, 1000);
 </script>
 
 <template>
-  <div v-if="showLoading" id="zyyo-loading">
+  <div id="zyyo-loading" v-bind:style="{ opacity: showLoadingOpacity }">
     <div id="zyyo-loading-center"></div>
   </div>
   <div class="zyyo-filter"></div>
@@ -235,7 +228,7 @@ setTimeout(() => {
     </div>
     <div class="zyyo-right">
       <header>
-        <div class="index-logo" style="background-image: url(../assets/img/logo.png)">
+        <div class="index-logo zyyo-right-logo">
           <img
             style="position: absolute; top: -15%; left: -10%; width: 120%; aspect-ratio: 1/1"
             src="@/assets/img/logokuang.png"
@@ -360,22 +353,22 @@ setTimeout(() => {
     Zyyo © 2024 |
     <a href="https://beian.miit.gov.cn/"> 豫ICP备2023015852号-1 </a>
   </footer>
-  <div @click="() => pop" class="tc">
+  <div @click="() => pop()" class="tc" v-bind:class="{ active: tcActive }">
     <div
-      @click="
-        (event) => {
-          event.stopPropagation();
-        }
-      "
       class="tc-main"
+      @click="(event) => event.stopPropagation()"
+      v-bind:class="{ active: tcMainActive }"
     >
-      <img class="tc-img" src="" alt="" srcset="" />
+      <img class="tc-img" :src="tcMainElementSrc" alt="" srcset="" />
     </div>
   </div>
 </template>
 
 <style scoped>
 .zyyo-left-logo {
+  background-image: url(@/assets/img/logo.png);
+}
+.zyyo-right-logo {
   background-image: url(@/assets/img/logo.png);
 }
 </style>
