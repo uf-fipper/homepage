@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "txc-change-log": "^2.0.8",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
