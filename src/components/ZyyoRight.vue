@@ -10,12 +10,15 @@ import SiteTitleSvg from '@/components/svg/SiteTitleSvg.vue';
 import ProjectTitleSvg from '@/components/svg/ProjectTitleSvg.vue';
 import SkillsTitleSvg from '@/components/svg/SkillsTitleSvg.vue';
 import ZyyoDescripton from './ZyyoDescripton.vue';
+import TxcChangeLog from 'txc-change-log';
 
 interface Props {
   pop: (url?: string) => any;
 }
 
 const props = defineProps<Props>();
+
+const txcChangeLog = new TxcChangeLog({ id: 648905 });
 
 interface IconItem {
   onclick?: (e: MouseEvent) => void;
@@ -70,6 +73,15 @@ let siteProjectItems: ProjectItemProps[] = [
     href: 'https://zyyo.cc',
     image: new URL('@/assets/img/i3.png', import.meta.url).href,
     extClass: 'a',
+  },
+  {
+    title: '日志',
+    value: '查看日志',
+    image: new URL('@/assets/img/i3.png', import.meta.url).href,
+    extClass: 'a',
+    onclick: () => {
+      txcChangeLog.showModal();
+    },
   },
 ];
 

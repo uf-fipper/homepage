@@ -2,10 +2,11 @@
 export interface ProjectItemProps {
   title: string;
   value: string;
-  href: string;
+  href?: string;
   image: string;
   extClass: 'a' | 'b';
   imageAlt?: string;
+  onclick?: (e: MouseEvent) => any;
 }
 defineProps<{ item: ProjectItemProps }>();
 
@@ -30,6 +31,7 @@ function handleCancel(event: Event) {
     :class="`projectItem ${item.extClass}`"
     target="_blank"
     :href="item.href"
+    @click="(e) => item.onclick && item.onclick(e)"
     @mousedown="handlePress"
     @mouseup="handleRelease"
     @mouseleave="handleCancel"

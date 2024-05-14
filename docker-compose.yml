@@ -2,13 +2,10 @@ version: "3"
 
 services:
   node:
-    build: .
+    image: node:20
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
     volumes:
       - ./:/home/node/app
-    expose:
-      - "8080"
-    ports: # use if it is necessary to expose the container to the host machine
-      - "8080:80"
+    command: /bin/bash -c "npm install && npm run build"
