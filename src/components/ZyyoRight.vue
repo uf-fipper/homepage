@@ -157,7 +157,7 @@ changeTheme();
           target="_blank"
           :href="item.href"
           :key="'icon-item-' + i"
-          @click="(e) => item.onclick && item.onclick(e)"
+          @click="(e: MouseEvent) => item.onclick && item.onclick(e)"
         >
           <Component :is="item.svg"></Component>
           <div class="iconTip">{{ item.name }}</div>
