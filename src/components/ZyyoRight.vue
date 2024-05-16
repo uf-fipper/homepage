@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type Component, type Ref } from 'vue';
-import ProjectItem, { type ProjectItemProps } from '@/components/ProjectItem.vue';
+import ProjectItem from './ProjectItem.vue';
 import GithubSvg from '@/components/svg/GithubSvg.vue';
 import MailSvg from '@/components/svg/MailSvg.vue';
 import SponsorSvg from '@/components/svg/SponsorSvg.vue';
@@ -11,6 +11,8 @@ import ProjectTitleSvg from '@/components/svg/ProjectTitleSvg.vue';
 import SkillsTitleSvg from '@/components/svg/SkillsTitleSvg.vue';
 import ZyyoDescripton from './ZyyoDescripton.vue';
 import TxcChangeLog from 'txc-change-log';
+import TxcIconSvg from './svg/TxcIconSvg.vue';
+import type { ProjectItemProps } from './ProjectItem.vue';
 
 interface Props {
   pop: (url?: string) => any;
@@ -30,78 +32,83 @@ interface IconItem {
 // icon 列表
 let iconItems: IconItem[] = [
   {
-    href: 'https://www.baidu.com',
+    href: 'https://github.com/xiangtai520',
     svg: GithubSvg,
     name: 'Github',
   },
   {
-    href: 'mailto:i@zyyo.net',
+    href: 'mailto:cofan365@qq.com',
     svg: MailSvg,
     name: 'Mail',
   },
   {
-    onclick: () => props.pop(new URL('@/assets/img/wxzsm.jpg', import.meta.url).href),
+    onclick: () => props.pop(new URL('@/assets/img/wxzsm.png', import.meta.url).href),
     svg: SponsorSvg,
     name: '赞助',
   },
   {
-    onclick: () => props.pop(new URL('@/assets/img/wx.jpg', import.meta.url).href),
+    onclick: () => props.pop(new URL('@/assets/img/wx.png', import.meta.url).href),
     svg: WxSvg,
     name: '微信',
   },
-];
-
-// site 列表
-let siteProjectItems: ProjectItemProps[] = [
   {
-    title: '博客',
-    value: '记录摆烂日常',
-    href: 'https://blog.zyyo.net',
-    image: new URL('@/assets/img/i1.png', import.meta.url).href,
-    extClass: 'a',
-  },
-  {
-    title: '云盘',
-    value: '存储收集文件',
-    href: 'https://i.zyyo.cc',
-    image: new URL('@/assets/img/i2.png', import.meta.url).href,
-    extClass: 'a',
-  },
-  {
-    title: '实验室',
-    value: '收集有趣html作品',
-    href: 'https://zyyo.cc',
-    image: new URL('@/assets/img/i3.png', import.meta.url).href,
-    extClass: 'a',
-  },
-  {
-    title: '日志',
-    value: '查看日志',
-    image: new URL('@/assets/img/i3.png', import.meta.url).href,
-    extClass: 'a',
-    onclick: () => {
-      txcChangeLog.showModal();
-    },
+    onclick: () => txcChangeLog.showModal(),
+    svg: TxcIconSvg,
+    name: '日志',
   },
 ];
 
-// project 列表
-let projectProjectItems: ProjectItemProps[] = [
+let projectItems: ProjectItemProps[] = [
   {
-    title: 'ZYYO主页',
-    value: '本站同款',
-    href: 'https://github.com/ZYYO666/homepage',
-    image: new URL('@/assets/img/i5.png', import.meta.url).href,
-    extClass: 'b',
+    title: 'WebSite——网站',
+    titleSvg: SiteTitleSvg,
+    items: [
+      {
+        title: '官方社区',
+        value: '问题建议反馈，更新日志等一站式社区',
+        href: 'https://support.qq.com/embed/phone/648905',
+        image: new URL('@/assets/img/i1.png', import.meta.url).href,
+      },
+      {
+        title: '祥太の收藏屋',
+        value: '由祥太亲自精选并整理在云盘的小说漫画视频等',
+        href: 'http://117.72.66.202:5212/s/jRfM',
+        image: new URL('@/assets/img/i2.png', import.meta.url).href,
+      },
+      {
+        title: 'WiKi百科全书',
+        value: '最实用的生活指南，涨知识啦',
+        href: 'https://zh.wikihow.com/',
+        image: new URL('@/assets/img/i3.png', import.meta.url).href,
+      },
+      {
+        title: 'Kimi.AI',
+        value: '帮你看更大的世界',
+        href: 'https://kimi.moonshot.cn',
+        image: new URL('@/assets/img/i4.png', import.meta.url).href,
+      },
+    ],
   },
   {
-    title: 'ZYYO主题',
-    value: '一款ty主题',
-    href: 'https://github.com/ZYYO666/ZYYO',
-    image: new URL('@/assets/img/i6.png', import.meta.url).href,
-    extClass: 'b',
+    title: 'About——关于我',
+    titleSvg: ProjectTitleSvg,
+    items: [
+      {
+        title: '祥太の专属𝕏',
+        value: '不知道封了多少次的推特',
+        href: 'https://x.com/xiang_tai365',
+        image: new URL('@/assets/img/i1.png', import.meta.url).href,
+      },
+      {
+        title: '祥太の私人Mastodon',
+        value: '需要关注才能查看私人嘟文哦，福利专属',
+        href: 'https://accl.mastoland.site/@shota',
+        image: new URL('@/assets/img/i2.png', import.meta.url).href,
+      },
+    ],
   },
 ];
+console.log(projectItems);
 
 function setCookie(name: string, value: string, days: number) {
   let expires = '';
@@ -135,9 +142,25 @@ let tanChiSheSrc = ref('');
 const tanChiSheDarkUrl = new URL(`@/assets/svg/snake-Dark.svg`, import.meta.url);
 const tanChiSheLightUrl = new URL(`@/assets/svg/snake-Light.svg`, import.meta.url);
 
+const svgItems = document.getElementsByTagName('svg');
+
+function changeSvg(color: string) {
+  for (var i = 0; i < svgItems.length; i++) {
+    var paths = svgItems[i].getElementsByTagName('path');
+    for (var j = 0; j < paths.length; j++) {
+      paths[j].setAttribute('fill', color);
+    }
+  }
+}
+
 function changeTheme() {
   const theme = themeState.value;
   const url = theme == 'Dark' ? tanChiSheDarkUrl : tanChiSheLightUrl;
+  if (theme == 'Dark') {
+    changeSvg('#ffffff');
+  } else {
+    changeSvg('#000000');
+  }
   tanChiSheSrc.value = url.href;
   html.dataset.theme = theme;
   setCookie('themeState', theme, 365);
@@ -146,11 +169,18 @@ changeTheme();
 </script>
 
 <template>
-  <div class="zyyo-right">
+  <div class="right">
     <header>
       <ZyyoDescripton></ZyyoDescripton>
-
       <div class="iconContainer">
+        <iframe
+          frameborder="no"
+          marginwidth="0"
+          marginheight="0"
+          width="280"
+          height="52"
+          src="//music.163.com/outchain/player?type=0&id=9684005621&auto=1&height=32"
+        ></iframe>
         <a
           v-for="(item, i) in iconItems"
           class="iconItem"
@@ -162,7 +192,7 @@ changeTheme();
           <Component :is="item.svg"></Component>
           <div class="iconTip">{{ item.name }}</div>
         </a>
-        <a class="switch">
+        <a class="iconItem switch">
           <div class="onoffswitch">
             <input
               type="checkbox"
@@ -191,38 +221,46 @@ changeTheme();
     </header>
 
     <content>
-      <TitleBase :comp="SiteTitleSvg" text="site"></TitleBase>
-      <div class="projectList">
-        <ProjectItem v-for="(item, i) in siteProjectItems" :key="item.title + i" :item="item">
-        </ProjectItem>
-      </div>
-      <TitleBase :comp="ProjectTitleSvg" text="project"></TitleBase>
-      <div class="projectList">
-        <ProjectItem v-for="(item, i) in projectProjectItems" :key="item.title + i" :item="item">
-        </ProjectItem>
-      </div>
+      <ProjectItem
+        v-for="(item, i) in projectItems"
+        :key="`project-item-${i}`"
+        :title="item.title"
+        :title-svg="item.titleSvg"
+        :items="item.items"
+      ></ProjectItem>
       <TitleBase :comp="SkillsTitleSvg" text="skills"></TitleBase>
       <div class="skill">
         <img id="skillPc" src="@/assets/svg/skillPc.svg" alt="" srcset="" />
         <img id="skillWap" src="@/assets/svg/skillWap.svg" alt="" srcset="" />
       </div>
     </content>
+    <footer>
+      CoFan Inc. © 2024 V1.02 |
+      <a href="https://beian.miit.gov.cn/">豫ICP备2024045852号-1</a>
+    </footer>
   </div>
 </template>
 
 <style scoped>
-.zyyo-right {
-  width: calc(100% - 230px);
+footer {
+  padding: 5px;
+  color: var(--footer-text-color);
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.right {
+  width: calc(100% - 250px);
   display: flex;
-  padding: 24px;
+  padding: 25px;
   position: relative;
   float: right;
-  padding-bottom: 50px;
   flex-direction: column;
 }
 
 .iconContainer {
   width: 100%;
+  gap: 8px;
   height: 60px;
   display: flex;
   align-items: center;
@@ -235,37 +273,47 @@ changeTheme();
 }
 
 .iconItem {
-  width: 49px;
-  height: 43px;
+  width: 47px;
+  height: 40px;
   box-sizing: border-box;
+  background: var(--icon-bg-color, rgba(249, 250, 251, 0.6));
   border-radius: 7px;
   display: flex;
-  margin-left: 10px;
-
-  backdrop-filter: blur(var(--card_filter));
-  background: var(--item_bg_color);
+  gap: 5px;
   align-items: center;
   justify-content: center;
-  transition:
-    width 0.3s ease,
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
-.iconItem i,
-.iconItem svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--fill);
-  font-size: 22px;
-  margin-right: 3px;
-}
-
-.iconItem:hover {
+.iconItem:nth-child(1):hover {
   width: 95px;
   transform: translateY(-2px);
-  background: var(--item_hover_color);
+  background: var(--icon-1-hover-color, rgb(137, 172, 255));
+}
+
+.iconItem:nth-child(2):hover {
+  width: 80px;
+  transform: translateY(-2px);
+  background: var(--icon-2-hover-color, rgb(251, 173, 255));
+}
+
+.iconItem:nth-child(3):hover {
+  width: 80px;
+  transform: translateY(-2px);
+  background: var(--icon-3-hover-color, rgb(169, 255, 248));
+}
+
+.iconItem:nth-child(4):hover {
+  width: 80px;
+  transform: translateY(-2px);
+  background: var(--icon-4-hover-color, rgb(255, 167, 161));
+}
+
+.iconItem:nth-child(5):hover {
+  width: 80px;
+  transform: translateY(-2px);
+  background: var(--icon-5-hover-color, rgb(255, 183, 156));
 }
 
 .iconItem:hover .iconTip {
@@ -279,34 +327,19 @@ changeTheme();
 
 .switch {
   width: 55px;
-  height: 43px;
-  box-sizing: border-box;
-  border-radius: 7px;
-  display: flex;
-  margin-left: 10px;
-  backdrop-filter: blur(var(--card_filter));
-  background: var(--item_bg_color);
-
-  align-items: center;
-  justify-content: center;
-  transition:
-    width 1s ease,
-    opacity 1s ease,
-    transform 1s ease;
-  flex-shrink: 0;
 }
 
 .switch:hover {
   width: 55px;
-  /* transform: translateY(-2px); */
-  background: var(--item_hover_color);
+
+  transform: translateY(-2px);
+  background: var(--icon-5-hover-color, rgb(255, 183, 156));
 }
 
 .onoffswitch {
   position: relative;
   width: 38px;
   height: 20px;
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -352,7 +385,7 @@ changeTheme();
 
 .onoffswitch-inner:before {
   content: '';
-  background-color: rgb(110 110 110 / 50%);
+  background-color: #e4e4e4;
   color: #ffffff;
   text-align: left;
 }
@@ -375,7 +408,7 @@ changeTheme();
   right: 5px;
 
   border-radius: 20px;
-  transition: right 0.2s ease-in 0s;
+  transition: all 0.2s ease-in 0s;
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
@@ -396,11 +429,6 @@ changeTheme();
   object-fit: cover;
 }
 
-.projectList {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .skill {
   padding: 25px;
   width: 100%;
@@ -417,7 +445,7 @@ changeTheme();
 }
 
 @media (max-width: 800px) {
-  .zyyo-right {
+  .right {
     width: 100%;
   }
 

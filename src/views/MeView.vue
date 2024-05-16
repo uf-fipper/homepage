@@ -12,6 +12,7 @@ let tcMainActive = ref(false);
 let tcActive = ref(false);
 
 function pop(imageURL?: string) {
+  console.log('pop', imageURL);
   if (imageURL) {
     tcMainElementSrc.value = imageURL;
   }
@@ -23,11 +24,7 @@ function pop(imageURL?: string) {
 <template>
   <ZyyoLoading></ZyyoLoading>
   <ZyyoMain :pop="pop"></ZyyoMain>
-  <footer>
-    Zyyo © 2024 |
-    <a href="https://beian.miit.gov.cn/"> 豫ICP备2023015852号-1 </a>
-  </footer>
-  <div @click="() => pop()" class="tc" v-bind:class="{ active: tcActive }">
+  <div class="tc" :class="{ active: tcActive }">
     <div
       class="tc-main"
       @click="(event) => event.stopPropagation()"
@@ -35,28 +32,36 @@ function pop(imageURL?: string) {
     >
       <img class="tc-img" :src="tcMainElementSrc" alt="" srcset="" />
     </div>
+    <div @click="() => pop()" class="tc-close">
+      <svg
+        t="1700047644371"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="950"
+        width="19px"
+        height="19px"
+      >
+        <path
+          d="M610.616405 512.423878l391.647127 391.939565a68.722849 68.722849 0 0 1 0 98.332161 72.012772 72.012772 0 0 1-100.306115 0l-390.404267-391.354689-392.012675 391.28158a69.74638 69.74638 0 0 1-98.551489-98.551489l391.793346-391.720237L20.988986 119.533891A69.74638 69.74638 0 0 1 119.540475 20.982402l392.158893 392.451331L901.957417 23.248793a72.012772 72.012772 0 0 1 100.306115 0 68.722849 68.722849 0 0 1 0 98.332161L610.616405 512.423878z"
+          p-id="951"
+          fill="#000000"
+        ></path>
+      </svg>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.zyyo-filter {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  backdrop-filter: blur(var(--back_filter));
-  -webkit-backdrop-filter: blur(var(--back-filter));
-  z-index: -99999999;
-  background: var(--back_filter_color);
-}
-
 .tc {
   position: fixed;
   display: flex;
   visibility: hidden;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(10px);
-  background: rgba(20, 20, 20, 0.5);
+
+  background: rgba(255, 255, 255, 0);
   z-index: 99999;
   align-items: center;
   justify-content: center;
@@ -67,16 +72,17 @@ function pop(imageURL?: string) {
   z-index: 100000;
   width: 80%;
   max-width: 300px;
+  /* 根据需要调整最大宽度 */
   min-height: 200px;
   background-color: #ffffff;
-  border-radius: 15px;
-
+  border-radius: 12px;
+  opacity: 0;
   display: flex;
-  transition: transform 0.2s linear;
+  transition: all 0.15s linear;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transform: translateY(50%) scale(0.7);
+  transform: translateY(20%);
 }
 
 .tc-img {
@@ -89,39 +95,18 @@ function pop(imageURL?: string) {
 }
 
 .tc-main.active {
-  transform: translateY(0) scale(1);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-footer {
-  position: absolute;
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-  backdrop-filter: blur(var(--card_filter));
-  background: var(--item_bg_color);
-  color: var(--footer_text_color);
-  font-size: 13px;
-  bottom: 0;
-}
-
-@font-face {
-  font-family: 'a';
-  /*中文字体*/
-  src: url();
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'b';
-
-  src: url(@/assets/fonts/Ubuntu-Regular.ttf);
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'title';
-  /*英文字体*/
-  src: url(@/assets/fonts/Pacifico-Regular.ttf);
-  font-display: swap;
+.tc-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: var(--project-item-bg-color, rgba(249, 250, 251, 0.6));
+  margin-top: 30px;
+  border-radius: 50%;
 }
 </style>

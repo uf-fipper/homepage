@@ -10,17 +10,16 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="zyyo-main">
+  <div class="main">
     <ZyyoLeft></ZyyoLeft>
     <ZyyoRight :pop="pop"></ZyyoRight>
   </div>
 </template>
 
 <style scoped>
-.zyyo-main {
+.main {
   width: 100%;
-  transition: transform 0.5s ease;
-  max-width: 1150px;
+  max-width: 1200px;
   position: relative;
   flex-direction: row;
 }
