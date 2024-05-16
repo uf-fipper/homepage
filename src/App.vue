@@ -8,11 +8,13 @@
 @import url(@/assets/root.css);
 
 * {
+  cursor: url('@/assets/sb.cur'), auto;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   user-select: none;
-  transition: background-color 0.2s ease;
+  transition: all 0.1s ease;
+  font-family: 'b', 'a', sans-serif;
 }
 
 a:hover,
@@ -61,11 +63,7 @@ html[data-theme='Dark'] {
 }
 
 body {
-  background: var(--main_bg_color);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--main-bg-color, linear-gradient(50deg, #a2d1ff, #ffffff));
 }
 
 #app {
@@ -73,11 +71,9 @@ body {
   height: 100%;
   min-height: 100vh;
   width: 100%;
-  position: relative;
-  font-family: 'b', 'a', sans-serif;
-  transition: color 0.1s ease;
+  overflow-x: hidden;
   justify-content: center;
-  color: var(--main_text_color);
+  color: var(--main-text-color, #000000);
 }
 
 @keyframes zoom {

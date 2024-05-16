@@ -22,7 +22,6 @@ function pop(imageURL?: string) {
 
 <template>
   <ZyyoLoading></ZyyoLoading>
-  <div class="zyyo-filter"></div>
   <ZyyoMain :pop="pop"></ZyyoMain>
   <footer>
     Zyyo © 2024 |
