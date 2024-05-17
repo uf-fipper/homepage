@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 export interface ProjectItemInnerProps {
   title: string;
   value: string;
@@ -9,18 +11,25 @@ export interface ProjectItemInnerProps {
 }
 defineProps<{ item: ProjectItemInnerProps }>();
 
+let fadeInVisible = ref(false);
+
 function checkProjectItem(e: Event) {
   const elem = e.target as HTMLAnchorElement;
   const projectItemTop = elem.getBoundingClientRect().top;
   if (projectItemTop < window.innerHeight * 1.2) {
-    elem.classList.add('fade-in-visible');
+    fadeInVisible.value = true;
   }
 }
+
+setTimeout(() => {
+  fadeInVisible.value = true;
+}, 300);
 </script>
 
 <template>
   <a
-    class="projectItem fade-in-visible"
+    class="projectItem"
+    :class="{ 'fade-in-visible': fadeInVisible }"
     target="_blank"
     :href="item.href"
     @click="(e) => item.onclick && item.onclick(e)"
