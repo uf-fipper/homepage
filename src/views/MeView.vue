@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import ZyyoLoading from '@/components/ZyyoLoading.vue';
 import ZyyoMain from '@/components/ZyyoMain.vue';
-import TxcIconSvg from '../components/svg/TxcIconSvg.vue';
 import TxcChangeLog from 'txc-change-log';
 
 document.addEventListener('contextmenu', function (event) {

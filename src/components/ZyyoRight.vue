@@ -12,6 +12,7 @@ import SkillsTitleSvg from '@/components/svg/SkillsTitleSvg.vue';
 import ZyyoDescripton from './ZyyoDescripton.vue';
 import type { ProjectItemProps } from './ProjectItem.vue';
 import OpenLeft from './OpenLeft.vue';
+import TxcChangeLog from 'txc-change-log';
 
 interface Props {
   pop: (url?: string) => any;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const txcChangeLog = new TxcChangeLog({ id: 648905 });
 
 interface IconItem {
   onclick?: (e: MouseEvent) => void;
@@ -79,6 +81,12 @@ let projectItems: ProjectItemProps[] = [
         value: '帮你看更大的世界',
         href: 'https://kimi.moonshot.cn',
         image: new URL('@/assets/img/i4.png', import.meta.url).href,
+      },
+      {
+        title: '日志',
+        value: '日志',
+        image: new URL('@/assets/img/i4.png', import.meta.url).href,
+        onclick: () => txcChangeLog.showModal(),
       },
     ],
   },
