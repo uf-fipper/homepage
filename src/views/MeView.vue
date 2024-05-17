@@ -7,6 +7,10 @@ document.addEventListener('contextmenu', function (event) {
   event.preventDefault();
 });
 
+document.title = '祥太の个人主页';
+let link = document.querySelector('link[rel*="icon"]') as HTMLLinkElement;
+link.href = new URL('@/assets/img/nev.ico', import.meta.url).href;
+
 let tcMainElementSrc = ref('');
 let tcMainActive = ref(false);
 let tcActive = ref(false);

@@ -340,6 +340,7 @@ footer {
   position: relative;
   width: 38px;
   height: 20px;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
