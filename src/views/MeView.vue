@@ -2,10 +2,14 @@
 import { ref } from 'vue';
 import ZyyoLoading from '@/components/ZyyoLoading.vue';
 import ZyyoMain from '@/components/ZyyoMain.vue';
+import TxcIconSvg from '../components/svg/TxcIconSvg.vue';
+import TxcChangeLog from 'txc-change-log';
 
 document.addEventListener('contextmenu', function (event) {
   event.preventDefault();
 });
+
+const txcChangeLog = new TxcChangeLog({ id: 648905 });
 
 document.title = '祥太の个人主页';
 let link = document.querySelector('link[rel*="icon"]') as HTMLLinkElement;
@@ -23,6 +27,10 @@ function pop(imageURL?: string) {
   tcMainActive.value = !tcMainActive.value;
   tcActive.value = !tcActive.value;
 }
+
+setTimeout(() => {
+  txcChangeLog.showModal();
+}, 300);
 </script>
 
 <template>

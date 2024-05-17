@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref, type Component } from 'vue';
+import { type Component } from 'vue';
 import LocationSvg from '@/components/svg/LocationSvg.vue';
 import NameSvg from '@/components/svg/NameSvg.vue';
 import UserLogo from './UserLogo.vue';
+
+defineProps<{ leftOpen: boolean; popLeft: () => any }>();
 
 interface LeftDesItem {
   svg: Component;
@@ -38,19 +40,11 @@ let lineItems: LineItem[] = [
 
 // 标签
 let tags: string[] = ['少年', '初三', '喜涩涩', '0.5', '可攻可受', 'ISFP-T', '米粉', '宅男'];
-
-let leftClass = ref({ 'left-open': false });
-let leftMainClass = ref({ 'left-main-open': false });
-
-function left() {
-  leftClass.value['left-open'] = !leftClass.value['left-open'];
-  leftMainClass.value['left-main-open'] = !leftMainClass.value['left-main-open'];
-}
 </script>
 
 <template>
-  <div @click="left()" class="left" :class="leftClass">
-    <div class="left-main" :class="leftMainClass">
+  <div @click="popLeft()" class="left" :class="{ 'left-open': leftOpen }">
+    <div class="left-main" :class="{ 'left-main-open': leftOpen }">
       <UserLogo></UserLogo>
       <div class="left-div left-des">
         <div v-for="(item, i) in leftDesItems" :key="`left-des-item-${i}`" class="left-des-item">

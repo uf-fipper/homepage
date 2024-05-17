@@ -10,17 +10,15 @@ import SiteTitleSvg from '@/components/svg/SiteTitleSvg.vue';
 import ProjectTitleSvg from '@/components/svg/ProjectTitleSvg.vue';
 import SkillsTitleSvg from '@/components/svg/SkillsTitleSvg.vue';
 import ZyyoDescripton from './ZyyoDescripton.vue';
-import TxcChangeLog from 'txc-change-log';
-import TxcIconSvg from './svg/TxcIconSvg.vue';
 import type { ProjectItemProps } from './ProjectItem.vue';
+import OpenLeft from './OpenLeft.vue';
 
 interface Props {
   pop: (url?: string) => any;
+  popLeft: () => any;
 }
 
 const props = defineProps<Props>();
-
-const txcChangeLog = new TxcChangeLog({ id: 648905 });
 
 interface IconItem {
   onclick?: (e: MouseEvent) => void;
@@ -50,11 +48,6 @@ let iconItems: IconItem[] = [
     onclick: () => props.pop(new URL('@/assets/img/wx.png', import.meta.url).href),
     svg: WxSvg,
     name: '微信',
-  },
-  {
-    onclick: () => txcChangeLog.showModal(),
-    svg: TxcIconSvg,
-    name: '日志',
   },
 ];
 
@@ -108,7 +101,6 @@ let projectItems: ProjectItemProps[] = [
     ],
   },
 ];
-console.log(projectItems);
 
 function setCookie(name: string, value: string, days: number) {
   let expires = '';
@@ -192,6 +184,7 @@ changeTheme();
           <Component :is="item.svg"></Component>
           <div class="iconTip">{{ item.name }}</div>
         </a>
+        <OpenLeft :pop-left="popLeft"></OpenLeft>
         <a class="iconItem switch">
           <div class="onoffswitch">
             <input
