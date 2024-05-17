@@ -28,9 +28,12 @@ function pop(imageURL?: string) {
   tcActive.value = !tcActive.value;
 }
 
-setTimeout(() => {
-  txcChangeLog.showModal();
-}, 300);
+if (localStorage.getItem('txcShowed') == null) {
+  setTimeout(() => {
+    txcChangeLog.showModal();
+  }, 300);
+  localStorage.setItem('txcShowed', '1');
+}
 </script>
 
 <template>
