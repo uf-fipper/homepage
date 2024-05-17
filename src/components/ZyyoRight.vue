@@ -85,7 +85,7 @@ let projectItems: ProjectItemProps[] = [
       {
         title: '日志',
         value: '日志',
-        image: new URL('@/assets/img/i4.png', import.meta.url).href,
+        image: new URL('@/assets/img/i7.png', import.meta.url).href,
         onclick: () => txcChangeLog.showModal(),
       },
     ],
