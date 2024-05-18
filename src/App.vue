@@ -31,7 +31,7 @@ html[data-theme='Dark'] {
 }
 
 * {
-  cursor: url('/static/sb.cur'), auto;
+  cursor: url('@/assets/sb.cur'), auto;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -112,7 +112,7 @@ body {
 @font-face {
   font-family: 'a';
   /*中文字体*/
-  src: url(https://i.zyyo.net/upload/%E5%AD%97%E4%BD%93/%E5%85%B6%E4%BB%96%E5%AD%97%E4%BD%93/Hubot/Hubot%20Sans/Hubot-Sans.woff2);
+  src: url();
   font-display: swap;
 }
 
